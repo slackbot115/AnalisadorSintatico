@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 using AnalisadorSintatico.Content;
 using Antlr4.Runtime;
 
@@ -9,6 +10,8 @@ namespace AnalisadorSintatico
     {
         static void Main(string[] args)
         {
+
+            LanguageErrorListener errorListener;
             
             var fileName="Content\\code.txt";
             var fileContents = File.ReadAllText(fileName);
@@ -20,11 +23,18 @@ namespace AnalisadorSintatico
             var commonTokenStream = new CommonTokenStream(languageLexer);
             
             var languageParser = new LanguageParser(commonTokenStream);
-
-            var languageContext = languageParser.program();
-
-            var visitor = new LanguageVisitor();
             
+            StringWriter writer = new StringWriter();
+            errorListener = new LanguageErrorListener(writer);
+            
+            languageParser.RemoveErrorListeners();
+            languageParser.AddErrorListener(errorListener);
+
+            languageParser.program();
+            //var languageContext = languageParser.program();
+            
+            //var visitor = new LanguageVisitor();
+
             //visitor.Visit(languageContext);
 
             if(languageParser.NumberOfSyntaxErrors == 0)
@@ -32,6 +42,7 @@ namespace AnalisadorSintatico
             else
             {
                 Console.WriteLine("Código inválido");
+                Console.WriteLine("Erro: " + errorListener.Writer);
             }
         }
     }
