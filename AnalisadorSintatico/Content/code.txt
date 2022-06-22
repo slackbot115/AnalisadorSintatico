@@ -1,6 +1,20 @@
-﻿i = 1;
-x = 4;
-if x > 10 {
-    x = x + 1;
-    i = ;
+﻿ID
+=
+NUM_INT
+;
+ID
+=
+NUM_INT
+;
+if
+ID
+COMP
+NUM_INT
+{
+ID
+=
+ID
++
+NUM_DEC
+;
 }

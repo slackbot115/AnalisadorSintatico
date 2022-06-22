@@ -30,20 +30,20 @@ expression
 
 multOp: '*' | '/' | '%';
 addOp: '+' | '-';
-compareOp: '==' | '!=' | '>' | '<' | '>=' | '<=';
+compareOp: 'COMP';
 boolOp: BOOL_OP;
 
 BOOL_OP: 'and' | 'or';
 
 constant: INTEGER | FLOAT | STRING | BOOL | NULL;
 
-INTEGER: [0-9]+;
-FLOAT: [0-9]+ '.' [0-9]+;
-STRING: ('"' ~'"'* '"') | ('\'' ~'\''* '\'');
+INTEGER: 'NUM_INT';
+FLOAT: 'NUM_DEC';
+STRING: 'Texto';
 BOOL: 'true' | 'false';
 NULL: 'null';
 
 block: '{' line* '}';
 
 WS: [ \t\r\n]+ -> skip;
-ID: [a-zA-Z_]+;
+ID: 'ID';
